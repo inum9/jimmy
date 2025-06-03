@@ -5,7 +5,7 @@ import connectDb from './db/db.js';
 // import projectRoutes from './routes/project.routes.js';
 // import aiRoutes from './routes/ai.routes.js';
 import cookieParser from 'cookie-parser';
-// import cors from 'cors';
+import cors from 'cors';
 
 connectDb().then(()=>{
     console.log(`connectDb is working `);
@@ -15,7 +15,7 @@ connectDb().then(()=>{
 
 const app = express();
 
-// app.use(cors());
+ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,5 +32,5 @@ app.get('/', (req, res) => {
 });
 
 import userRoutes from "../backend/routes/user.routes.js"
-app.use ("/api/v1/user",userRoutes);
+app.use ("/api/v1/users",userRoutes);
 export default app; 
