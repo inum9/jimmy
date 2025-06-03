@@ -1,9 +1,9 @@
 
 
-import userModel from '../models/user.model.js';
-import * as userService from '../services/user.service.js';
+import userModel from '../model/user.model.js';
+import * as userService from "../services/user.services.js";
 import { validationResult } from 'express-validator';
-import redisClient from '../services/redis.service.js';
+// import redisClient from '../services/redis.service.js';
 
 
 export const createUserController = async (req, res) => {
