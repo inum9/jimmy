@@ -1,6 +1,6 @@
-import projectModel from "../models/project.model.js";
+import projectModel from "../model/project.model.js";
 import * as projectService from "../services/project.service.js";
-import userModel from "../models/user.model.js";
+import userModel from "../model/user.model.js";
 import { validationResult } from "express-validator";
 
 export const createProject = async (req, res) => {

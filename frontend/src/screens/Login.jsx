@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from '../config/axios'
+import axiosInstance from '../config/axios'
 import { UserContext } from '../context/user.context'
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
 
         e.preventDefault()
 
-        axios.post('/users/login', {
+        axiosInstance.post('/users/login', {
             email,
             password
         }).then((res) => {

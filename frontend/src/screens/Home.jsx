@@ -30,7 +30,7 @@ const Home = () => {
     }
 
     useEffect(() => {
-        axios.get('/projects/all').then((res) => {
+        axios.get('/all').then((res) => {
             setProject(res.data.projects)
 
         }).catch(err => {
