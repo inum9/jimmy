@@ -41,6 +41,9 @@ app.get('/', (req, res) => {
 
 import userRoutes from "../backend/routes/user.routes.js"
 import projectRoute from "../backend/routes/project.routes.js"
+import aiRoute from "../backend/routes/ai.routes.js";
 app.use ("/api/v1/users",userRoutes);
 app.use("/api/v1/project",projectRoute)
+app.use("/api/v1/ai",aiRoute);
+app
 export default app; 
