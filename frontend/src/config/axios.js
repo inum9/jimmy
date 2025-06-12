@@ -1,19 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
+
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-});
-
-// Add request interceptor to attach token to headers
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    baseURL: import.meta.env.VITE_API_URL,
+    headers: {
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
     }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+})
 
-export default axiosInstance;
+
+export default axiosInstance;   

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../context/user.context'
 import axios from "../config/axios"
@@ -8,7 +7,7 @@ const Home = () => {
 
     const { user } = useContext(UserContext)
     const [ isModalOpen, setIsModalOpen ] = useState(false)
-    const [ projectName, setProjectName ] = useState('')
+    const [ projectName, setProjectName ] = useState(null)
     const [ project, setProject ] = useState([])
 
     const navigate = useNavigate()
@@ -17,32 +16,25 @@ const Home = () => {
         e.preventDefault()
         console.log({ projectName })
 
-        const token = localStorage.getItem('token')
-
-        axios.post('/project/create',
-            { name: projectName },
-            { headers: { Authorization: `Bearer ${token}` } }
-        )
-        .then((res) => {
-            console.log(res)
-            setIsModalOpen(false)
-            // Optionally refresh projects list or append new project to state here
+        axios.post('/projects/create', {
+            name: projectName,
         })
-        .catch((error) => {
-            console.log(error)
-        })
+            .then((res) => {
+                console.log(res)
+                setIsModalOpen(false)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     useEffect(() => {
-        const token = localStorage.getItem('token')
+        axios.get('/projects/all').then((res) => {
+            setProject(res.data.projects)
 
-        axios.get('/project/all', { headers: { Authorization: `Bearer ${token}` } })
-            .then((res) => {
-                setProject(res.data.projects)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        }).catch(err => {
+            console.log(err)
+        })
 
     }, [])
 
@@ -65,14 +57,20 @@ const Home = () => {
                                 })
                             }}
                             className="project flex flex-col gap-2 cursor-pointer p-4 border border-slate-300 rounded-md min-w-52 hover:bg-slate-200">
-                            <h2 className='font-semibold'>{project.name}</h2>
+                            <h2
+                                className='font-semibold'
+                            >{project.name}</h2>
+
                             <div className="flex gap-2">
                                 <p> <small> <i className="ri-user-line"></i> Collaborators</small> :</p>
                                 {project.users.length}
                             </div>
+
                         </div>
                     ))
                 }
+
+
             </div>
 
             {isModalOpen && (
@@ -85,26 +83,18 @@ const Home = () => {
                                 <input
                                     onChange={(e) => setProjectName(e.target.value)}
                                     value={projectName}
-                                    type="text"
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
-                                    required
-                                />
+                                    type="text" className="mt-1 block w-full p-2 border border-gray-300 rounded-md" required />
                             </div>
                             <div className="flex justify-end">
-                                <button
-                                    type="button"
-                                    className="mr-2 px-4 py-2 bg-gray-300 rounded-md"
-                                    onClick={() => setIsModalOpen(false)}
-                                >Cancel</button>
-                                <button
-                                    type="submit"
-                                    className="px-4 py-2 bg-blue-600 text-white rounded-md"
-                                >Create</button>
+                                <button type="button" className="mr-2 px-4 py-2 bg-gray-300 rounded-md" onClick={() => setIsModalOpen(false)}>Cancel</button>
+                                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md">Create</button>
                             </div>
                         </form>
                     </div>
                 </div>
             )}
+
+
         </main>
     )
 }

@@ -1,5 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
-// eslint-disable-next-line no-unused-vars
 import React, { createContext, useState, useContext } from 'react';
 
 // Create the UserContext

@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext, useRef } from 'react'
-import { UserContext } from '../context/user.context';
+import { UserContext } from '../context/user.context'
 import { useNavigate, useLocation } from 'react-router-dom'
 import axios from '../config/axios'
 import { initializeSocket, receiveMessage, sendMessage } from '../config/socket'
@@ -68,7 +66,7 @@ const Project = () => {
 
     function addCollaborators() {
 
-        axios.put("/project/add-user", {
+        axios.put("/projects/add-user", {
             projectId: location.state.project._id,
             users: Array.from(selectedUserId)
         }).then(res => {
@@ -148,7 +146,7 @@ const Project = () => {
         })
 
 
-        axios.get(`/project/get-project/${location.state.project._id}`).then(res => {
+        axios.get(`/projects/get-project/${location.state.project._id}`).then(res => {
 
             console.log(res.data.project)
 
@@ -169,7 +167,7 @@ const Project = () => {
     }, [])
 
     function saveFileTree(ft) {
-        axios.put('/project/update-file-tree', {
+        axios.put('/projects/update-file-tree', {
             projectId: project._id,
             fileTree: ft
         }).then(res => {
