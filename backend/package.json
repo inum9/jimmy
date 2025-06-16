@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
+  
   "scripts": {
-    "test": "nodemon server.js"
+    "test": "nodemon server.js",
+    "debug" :"npm install debug --save",
+    "start" :" node server.js"
+
   },
   "keywords": [],
   "author": "",
